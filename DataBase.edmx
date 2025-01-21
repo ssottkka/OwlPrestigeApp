@@ -1,0 +1,930 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище OwlPrestigeModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="БанковскиеРеквизиты">
+          <Key>
+            <PropertyRef Name="IDРеквизита" />
+          </Key>
+          <Property Name="IDРеквизита" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDПользователя" Type="int" Nullable="false" />
+          <Property Name="НомерСчета" Type="nvarchar" MaxLength="20" />
+          <Property Name="НазваниеБанка" Type="nvarchar" MaxLength="100" />
+          <Property Name="АдресБанка" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Задачи">
+          <Key>
+            <PropertyRef Name="IDЗадачи" />
+          </Key>
+          <Property Name="IDЗадачи" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="НазваниеЗадачи" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="IDТипаОбъекта" Type="int" Nullable="false" />
+          <Property Name="СрокВыполнения" Type="datetime" />
+          <Property Name="IDСтатуса" Type="int" Nullable="false" />
+          <Property Name="IDКомпании" Type="int" Nullable="false" />
+          <Property Name="ФайлЧертежа" Type="varbinary(max)" />
+          <Property Name="ФайлСпецификации" Type="varbinary(max)" />
+          <Property Name="Название объекта" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="ИсполнителиЗадач">
+          <Key>
+            <PropertyRef Name="IDЗадачи" />
+            <PropertyRef Name="IDПользователя" />
+          </Key>
+          <Property Name="IDЗадачи" Type="int" Nullable="false" />
+          <Property Name="IDПользователя" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Компании">
+          <Key>
+            <PropertyRef Name="IDКомпании" />
+          </Key>
+          <Property Name="IDКомпании" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="НазваниеКомпании" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="НазначениеЗадач">
+          <Key>
+            <PropertyRef Name="IDНазначения" />
+          </Key>
+          <Property Name="IDНазначения" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDЗадачи" Type="int" Nullable="false" />
+          <Property Name="IDПользователя" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ПаспортныеДанные">
+          <Key>
+            <PropertyRef Name="IDПаспорта" />
+          </Key>
+          <Property Name="IDПаспорта" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDПользователя" Type="int" Nullable="false" />
+          <Property Name="СерияПаспорта" Type="nvarchar" MaxLength="10" />
+          <Property Name="НомерПаспорта" Type="nvarchar" MaxLength="20" />
+          <Property Name="ДатаВыдачи" Type="datetime" />
+          <Property Name="МестоВыдачи" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Пользователи">
+          <Key>
+            <PropertyRef Name="IDПользователя" />
+          </Key>
+          <Property Name="IDПользователя" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Имя" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Фамилия" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Отчество" Type="nvarchar" MaxLength="50" />
+          <Property Name="НомерТелефона" Type="nvarchar" MaxLength="15" />
+          <Property Name="Логин" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Пароль" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="IDРоли" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ПользователиКомпании">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="IDПользователя" Type="int" Nullable="false" />
+          <Property Name="IDКомпании" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Роли">
+          <Key>
+            <PropertyRef Name="IDРоли" />
+          </Key>
+          <Property Name="IDРоли" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="НазваниеРоли" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Сообщения">
+          <Key>
+            <PropertyRef Name="IDСообщения" />
+          </Key>
+          <Property Name="IDСообщения" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDЗадачи" Type="int" Nullable="false" />
+          <Property Name="IDОтправителя" Type="int" Nullable="false" />
+          <Property Name="IDПолучателя" Type="int" Nullable="false" />
+          <Property Name="ТекстСообщения" Type="nvarchar(max)" />
+          <Property Name="Вложение" Type="varbinary(max)" />
+          <Property Name="ВремяОтправки" Type="datetime" />
+        </EntityType>
+        <EntityType Name="СтатусыЗадач">
+          <Key>
+            <PropertyRef Name="IDСтатуса" />
+          </Key>
+          <Property Name="IDСтатуса" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="НазваниеСтатуса" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ТипыОбъектов">
+          <Key>
+            <PropertyRef Name="IDТипаОбъекта" />
+          </Key>
+          <Property Name="IDТипаОбъекта" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="НазваниеТипа" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_БанковскиеРеквизиты_Пользователи">
+          <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="1" />
+          <End Role="БанковскиеРеквизиты" Type="Self.БанковскиеРеквизиты" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Пользователи">
+              <PropertyRef Name="IDПользователя" />
+            </Principal>
+            <Dependent Role="БанковскиеРеквизиты">
+              <PropertyRef Name="IDПользователя" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Задачи_Компании">
+          <End Role="Компании" Type="Self.Компании" Multiplicity="1" />
+          <End Role="Задачи" Type="Self.Задачи" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Компании">
+              <PropertyRef Name="IDКомпании" />
+            </Principal>
+            <Dependent Role="Задачи">
+              <PropertyRef Name="IDКомпании" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Задачи_СтатусыЗадач">
+          <End Role="СтатусыЗадач" Type="Self.СтатусыЗадач" Multiplicity="1" />
+          <End Role="Задачи" Type="Self.Задачи" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="СтатусыЗадач">
+              <PropertyRef Name="IDСтатуса" />
+            </Principal>
+            <Dependent Role="Задачи">
+              <PropertyRef Name="IDСтатуса" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Задачи_ТипыОбъектов">
+          <End Role="ТипыОбъектов" Type="Self.ТипыОбъектов" Multiplicity="1" />
+          <End Role="Задачи" Type="Self.Задачи" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ТипыОбъектов">
+              <PropertyRef Name="IDТипаОбъекта" />
+            </Principal>
+            <Dependent Role="Задачи">
+              <PropertyRef Name="IDТипаОбъекта" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ИсполнителиЗадач_Задачи">
+          <End Role="Задачи" Type="Self.Задачи" Multiplicity="1" />
+          <End Role="ИсполнителиЗадач" Type="Self.ИсполнителиЗадач" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Задачи">
+              <PropertyRef Name="IDЗадачи" />
+            </Principal>
+            <Dependent Role="ИсполнителиЗадач">
+              <PropertyRef Name="IDЗадачи" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ИсполнителиЗадач_Пользователи">
+          <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="1" />
+          <End Role="ИсполнителиЗадач" Type="Self.ИсполнителиЗадач" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Пользователи">
+              <PropertyRef Name="IDПользователя" />
+            </Principal>
+            <Dependent Role="ИсполнителиЗадач">
+              <PropertyRef Name="IDПользователя" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_НазначениеЗадач_Задачи">
+          <End Role="Задачи" Type="Self.Задачи" Multiplicity="1" />
+          <End Role="НазначениеЗадач" Type="Self.НазначениеЗадач" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Задачи">
+              <PropertyRef Name="IDЗадачи" />
+            </Principal>
+            <Dependent Role="НазначениеЗадач">
+              <PropertyRef Name="IDЗадачи" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_НазначениеЗадач_Пользователи">
+          <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="1" />
+          <End Role="НазначениеЗадач" Type="Self.НазначениеЗадач" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Пользователи">
+              <PropertyRef Name="IDПользователя" />
+            </Principal>
+            <Dependent Role="НазначениеЗадач">
+              <PropertyRef Name="IDПользователя" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ПаспортныеДанные_Пользователи">
+          <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="1" />
+          <End Role="ПаспортныеДанные" Type="Self.ПаспортныеДанные" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Пользователи">
+              <PropertyRef Name="IDПользователя" />
+            </Principal>
+            <Dependent Role="ПаспортныеДанные">
+              <PropertyRef Name="IDПользователя" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Пользователи_Роли">
+          <End Role="Роли" Type="Self.Роли" Multiplicity="1" />
+          <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Роли">
+              <PropertyRef Name="IDРоли" />
+            </Principal>
+            <Dependent Role="Пользователи">
+              <PropertyRef Name="IDРоли" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ПользователиКомпании_Компании">
+          <End Role="Компании" Type="Self.Компании" Multiplicity="1" />
+          <End Role="ПользователиКомпании" Type="Self.ПользователиКомпании" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Компании">
+              <PropertyRef Name="IDКомпании" />
+            </Principal>
+            <Dependent Role="ПользователиКомпании">
+              <PropertyRef Name="IDКомпании" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ПользователиКомпании_Пользователи">
+          <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="1" />
+          <End Role="ПользователиКомпании" Type="Self.ПользователиКомпании" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Пользователи">
+              <PropertyRef Name="IDПользователя" />
+            </Principal>
+            <Dependent Role="ПользователиКомпании">
+              <PropertyRef Name="IDПользователя" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Сообщения_Задачи">
+          <End Role="Задачи" Type="Self.Задачи" Multiplicity="1" />
+          <End Role="Сообщения" Type="Self.Сообщения" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Задачи">
+              <PropertyRef Name="IDЗадачи" />
+            </Principal>
+            <Dependent Role="Сообщения">
+              <PropertyRef Name="IDЗадачи" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Сообщения_Отправитель">
+          <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="1" />
+          <End Role="Сообщения" Type="Self.Сообщения" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Пользователи">
+              <PropertyRef Name="IDПользователя" />
+            </Principal>
+            <Dependent Role="Сообщения">
+              <PropertyRef Name="IDОтправителя" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Сообщения_Получатель">
+          <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="1" />
+          <End Role="Сообщения" Type="Self.Сообщения" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Пользователи">
+              <PropertyRef Name="IDПользователя" />
+            </Principal>
+            <Dependent Role="Сообщения">
+              <PropertyRef Name="IDПолучателя" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище OwlPrestigeModelContainer">
+          <EntitySet Name="БанковскиеРеквизиты" EntityType="Self.БанковскиеРеквизиты" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Задачи" EntityType="Self.Задачи" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ИсполнителиЗадач" EntityType="Self.ИсполнителиЗадач" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Компании" EntityType="Self.Компании" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="НазначениеЗадач" EntityType="Self.НазначениеЗадач" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ПаспортныеДанные" EntityType="Self.ПаспортныеДанные" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Пользователи" EntityType="Self.Пользователи" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ПользователиКомпании" EntityType="Self.ПользователиКомпании" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Роли" EntityType="Self.Роли" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Сообщения" EntityType="Self.Сообщения" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="СтатусыЗадач" EntityType="Self.СтатусыЗадач" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ТипыОбъектов" EntityType="Self.ТипыОбъектов" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_БанковскиеРеквизиты_Пользователи" Association="Self.FK_БанковскиеРеквизиты_Пользователи">
+            <End Role="Пользователи" EntitySet="Пользователи" />
+            <End Role="БанковскиеРеквизиты" EntitySet="БанковскиеРеквизиты" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Задачи_Компании" Association="Self.FK_Задачи_Компании">
+            <End Role="Компании" EntitySet="Компании" />
+            <End Role="Задачи" EntitySet="Задачи" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Задачи_СтатусыЗадач" Association="Self.FK_Задачи_СтатусыЗадач">
+            <End Role="СтатусыЗадач" EntitySet="СтатусыЗадач" />
+            <End Role="Задачи" EntitySet="Задачи" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Задачи_ТипыОбъектов" Association="Self.FK_Задачи_ТипыОбъектов">
+            <End Role="ТипыОбъектов" EntitySet="ТипыОбъектов" />
+            <End Role="Задачи" EntitySet="Задачи" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ИсполнителиЗадач_Задачи" Association="Self.FK_ИсполнителиЗадач_Задачи">
+            <End Role="Задачи" EntitySet="Задачи" />
+            <End Role="ИсполнителиЗадач" EntitySet="ИсполнителиЗадач" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ИсполнителиЗадач_Пользователи" Association="Self.FK_ИсполнителиЗадач_Пользователи">
+            <End Role="Пользователи" EntitySet="Пользователи" />
+            <End Role="ИсполнителиЗадач" EntitySet="ИсполнителиЗадач" />
+          </AssociationSet>
+          <AssociationSet Name="FK_НазначениеЗадач_Задачи" Association="Self.FK_НазначениеЗадач_Задачи">
+            <End Role="Задачи" EntitySet="Задачи" />
+            <End Role="НазначениеЗадач" EntitySet="НазначениеЗадач" />
+          </AssociationSet>
+          <AssociationSet Name="FK_НазначениеЗадач_Пользователи" Association="Self.FK_НазначениеЗадач_Пользователи">
+            <End Role="Пользователи" EntitySet="Пользователи" />
+            <End Role="НазначениеЗадач" EntitySet="НазначениеЗадач" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ПаспортныеДанные_Пользователи" Association="Self.FK_ПаспортныеДанные_Пользователи">
+            <End Role="Пользователи" EntitySet="Пользователи" />
+            <End Role="ПаспортныеДанные" EntitySet="ПаспортныеДанные" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Пользователи_Роли" Association="Self.FK_Пользователи_Роли">
+            <End Role="Роли" EntitySet="Роли" />
+            <End Role="Пользователи" EntitySet="Пользователи" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ПользователиКомпании_Компании" Association="Self.FK_ПользователиКомпании_Компании">
+            <End Role="Компании" EntitySet="Компании" />
+            <End Role="ПользователиКомпании" EntitySet="ПользователиКомпании" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ПользователиКомпании_Пользователи" Association="Self.FK_ПользователиКомпании_Пользователи">
+            <End Role="Пользователи" EntitySet="Пользователи" />
+            <End Role="ПользователиКомпании" EntitySet="ПользователиКомпании" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Сообщения_Задачи" Association="Self.FK_Сообщения_Задачи">
+            <End Role="Задачи" EntitySet="Задачи" />
+            <End Role="Сообщения" EntitySet="Сообщения" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Сообщения_Отправитель" Association="Self.FK_Сообщения_Отправитель">
+            <End Role="Пользователи" EntitySet="Пользователи" />
+            <End Role="Сообщения" EntitySet="Сообщения" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Сообщения_Получатель" Association="Self.FK_Сообщения_Получатель">
+            <End Role="Пользователи" EntitySet="Пользователи" />
+            <End Role="Сообщения" EntitySet="Сообщения" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OwlPrestigeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="БанковскиеРеквизиты">
+          <Key>
+            <PropertyRef Name="IDРеквизита" />
+          </Key>
+          <Property Name="IDРеквизита" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDПользователя" Type="Int32" Nullable="false" />
+          <Property Name="НомерСчета" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="НазваниеБанка" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="АдресБанка" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Пользователи" Relationship="Self.FK_БанковскиеРеквизиты_Пользователи" FromRole="БанковскиеРеквизиты" ToRole="Пользователи" />
+        </EntityType>
+        <EntityType Name="Задачи">
+          <Key>
+            <PropertyRef Name="IDЗадачи" />
+          </Key>
+          <Property Name="IDЗадачи" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="НазваниеЗадачи" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IDТипаОбъекта" Type="Int32" Nullable="false" />
+          <Property Name="СрокВыполнения" Type="DateTime" Precision="3" />
+          <Property Name="IDСтатуса" Type="Int32" Nullable="false" />
+          <Property Name="IDКомпании" Type="Int32" Nullable="false" />
+          <Property Name="ФайлЧертежа" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ФайлСпецификации" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Название_объекта" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Компании" Relationship="Self.FK_Задачи_Компании" FromRole="Задачи" ToRole="Компании" />
+          <NavigationProperty Name="СтатусыЗадач" Relationship="Self.FK_Задачи_СтатусыЗадач" FromRole="Задачи" ToRole="СтатусыЗадач" />
+          <NavigationProperty Name="ТипыОбъектов" Relationship="Self.FK_Задачи_ТипыОбъектов" FromRole="Задачи" ToRole="ТипыОбъектов" />
+          <NavigationProperty Name="ИсполнителиЗадач" Relationship="Self.FK_ИсполнителиЗадач_Задачи" FromRole="Задачи" ToRole="ИсполнителиЗадач" />
+          <NavigationProperty Name="НазначениеЗадач" Relationship="Self.FK_НазначениеЗадач_Задачи" FromRole="Задачи" ToRole="НазначениеЗадач" />
+          <NavigationProperty Name="Сообщения" Relationship="Self.FK_Сообщения_Задачи" FromRole="Задачи" ToRole="Сообщения" />
+        </EntityType>
+        <EntityType Name="ИсполнителиЗадач">
+          <Key>
+            <PropertyRef Name="IDЗадачи" />
+            <PropertyRef Name="IDПользователя" />
+          </Key>
+          <Property Name="IDЗадачи" Type="Int32" Nullable="false" />
+          <Property Name="IDПользователя" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Задачи" Relationship="Self.FK_ИсполнителиЗадач_Задачи" FromRole="ИсполнителиЗадач" ToRole="Задачи" />
+          <NavigationProperty Name="Пользователи" Relationship="Self.FK_ИсполнителиЗадач_Пользователи" FromRole="ИсполнителиЗадач" ToRole="Пользователи" />
+        </EntityType>
+        <EntityType Name="Компании">
+          <Key>
+            <PropertyRef Name="IDКомпании" />
+          </Key>
+          <Property Name="IDКомпании" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="НазваниеКомпании" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Задачи" Relationship="Self.FK_Задачи_Компании" FromRole="Компании" ToRole="Задачи" />
+          <NavigationProperty Name="ПользователиКомпании" Relationship="Self.FK_ПользователиКомпании_Компании" FromRole="Компании" ToRole="ПользователиКомпании" />
+        </EntityType>
+        <EntityType Name="НазначениеЗадач">
+          <Key>
+            <PropertyRef Name="IDНазначения" />
+          </Key>
+          <Property Name="IDНазначения" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDЗадачи" Type="Int32" Nullable="false" />
+          <Property Name="IDПользователя" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Задачи" Relationship="Self.FK_НазначениеЗадач_Задачи" FromRole="НазначениеЗадач" ToRole="Задачи" />
+          <NavigationProperty Name="Пользователи" Relationship="Self.FK_НазначениеЗадач_Пользователи" FromRole="НазначениеЗадач" ToRole="Пользователи" />
+        </EntityType>
+        <EntityType Name="ПаспортныеДанные">
+          <Key>
+            <PropertyRef Name="IDПаспорта" />
+          </Key>
+          <Property Name="IDПаспорта" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDПользователя" Type="Int32" Nullable="false" />
+          <Property Name="СерияПаспорта" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="НомерПаспорта" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ДатаВыдачи" Type="DateTime" Precision="3" />
+          <Property Name="МестоВыдачи" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Пользователи" Relationship="Self.FK_ПаспортныеДанные_Пользователи" FromRole="ПаспортныеДанные" ToRole="Пользователи" />
+        </EntityType>
+        <EntityType Name="Пользователи">
+          <Key>
+            <PropertyRef Name="IDПользователя" />
+          </Key>
+          <Property Name="IDПользователя" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Имя" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Фамилия" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Отчество" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="НомерТелефона" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Логин" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Пароль" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IDРоли" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="БанковскиеРеквизиты" Relationship="Self.FK_БанковскиеРеквизиты_Пользователи" FromRole="Пользователи" ToRole="БанковскиеРеквизиты" />
+          <NavigationProperty Name="ИсполнителиЗадач" Relationship="Self.FK_ИсполнителиЗадач_Пользователи" FromRole="Пользователи" ToRole="ИсполнителиЗадач" />
+          <NavigationProperty Name="НазначениеЗадач" Relationship="Self.FK_НазначениеЗадач_Пользователи" FromRole="Пользователи" ToRole="НазначениеЗадач" />
+          <NavigationProperty Name="ПаспортныеДанные" Relationship="Self.FK_ПаспортныеДанные_Пользователи" FromRole="Пользователи" ToRole="ПаспортныеДанные" />
+          <NavigationProperty Name="Роли" Relationship="Self.FK_Пользователи_Роли" FromRole="Пользователи" ToRole="Роли" />
+          <NavigationProperty Name="ПользователиКомпании" Relationship="Self.FK_ПользователиКомпании_Пользователи" FromRole="Пользователи" ToRole="ПользователиКомпании" />
+          <NavigationProperty Name="Сообщения" Relationship="Self.FK_Сообщения_Отправитель" FromRole="Пользователи" ToRole="Сообщения" />
+          <NavigationProperty Name="Сообщения1" Relationship="Self.FK_Сообщения_Получатель" FromRole="Пользователи" ToRole="Сообщения" />
+        </EntityType>
+        <EntityType Name="ПользователиКомпании">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="IDПользователя" Type="Int32" Nullable="false" />
+          <Property Name="IDКомпании" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Компании" Relationship="Self.FK_ПользователиКомпании_Компании" FromRole="ПользователиКомпании" ToRole="Компании" />
+          <NavigationProperty Name="Пользователи" Relationship="Self.FK_ПользователиКомпании_Пользователи" FromRole="ПользователиКомпании" ToRole="Пользователи" />
+        </EntityType>
+        <EntityType Name="Роли">
+          <Key>
+            <PropertyRef Name="IDРоли" />
+          </Key>
+          <Property Name="IDРоли" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="НазваниеРоли" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Пользователи" Relationship="Self.FK_Пользователи_Роли" FromRole="Роли" ToRole="Пользователи" />
+        </EntityType>
+        <EntityType Name="Сообщения">
+          <Key>
+            <PropertyRef Name="IDСообщения" />
+          </Key>
+          <Property Name="IDСообщения" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDЗадачи" Type="Int32" Nullable="false" />
+          <Property Name="IDОтправителя" Type="Int32" Nullable="false" />
+          <Property Name="IDПолучателя" Type="Int32" Nullable="false" />
+          <Property Name="ТекстСообщения" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Вложение" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ВремяОтправки" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Задачи" Relationship="Self.FK_Сообщения_Задачи" FromRole="Сообщения" ToRole="Задачи" />
+          <NavigationProperty Name="Пользователи" Relationship="Self.FK_Сообщения_Отправитель" FromRole="Сообщения" ToRole="Пользователи" />
+          <NavigationProperty Name="Пользователи1" Relationship="Self.FK_Сообщения_Получатель" FromRole="Сообщения" ToRole="Пользователи" />
+        </EntityType>
+        <EntityType Name="СтатусыЗадач">
+          <Key>
+            <PropertyRef Name="IDСтатуса" />
+          </Key>
+          <Property Name="IDСтатуса" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="НазваниеСтатуса" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Задачи" Relationship="Self.FK_Задачи_СтатусыЗадач" FromRole="СтатусыЗадач" ToRole="Задачи" />
+        </EntityType>
+        <EntityType Name="ТипыОбъектов">
+          <Key>
+            <PropertyRef Name="IDТипаОбъекта" />
+          </Key>
+          <Property Name="IDТипаОбъекта" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="НазваниеТипа" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Задачи" Relationship="Self.FK_Задачи_ТипыОбъектов" FromRole="ТипыОбъектов" ToRole="Задачи" />
+        </EntityType>
+        <Association Name="FK_БанковскиеРеквизиты_Пользователи">
+          <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="1" />
+          <End Role="БанковскиеРеквизиты" Type="Self.БанковскиеРеквизиты" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Пользователи">
+              <PropertyRef Name="IDПользователя" />
+            </Principal>
+            <Dependent Role="БанковскиеРеквизиты">
+              <PropertyRef Name="IDПользователя" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Задачи_Компании">
+          <End Role="Компании" Type="Self.Компании" Multiplicity="1" />
+          <End Role="Задачи" Type="Self.Задачи" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Компании">
+              <PropertyRef Name="IDКомпании" />
+            </Principal>
+            <Dependent Role="Задачи">
+              <PropertyRef Name="IDКомпании" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Задачи_СтатусыЗадач">
+          <End Role="СтатусыЗадач" Type="Self.СтатусыЗадач" Multiplicity="1" />
+          <End Role="Задачи" Type="Self.Задачи" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="СтатусыЗадач">
+              <PropertyRef Name="IDСтатуса" />
+            </Principal>
+            <Dependent Role="Задачи">
+              <PropertyRef Name="IDСтатуса" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Задачи_ТипыОбъектов">
+          <End Role="ТипыОбъектов" Type="Self.ТипыОбъектов" Multiplicity="1" />
+          <End Role="Задачи" Type="Self.Задачи" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ТипыОбъектов">
+              <PropertyRef Name="IDТипаОбъекта" />
+            </Principal>
+            <Dependent Role="Задачи">
+              <PropertyRef Name="IDТипаОбъекта" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ИсполнителиЗадач_Задачи">
+          <End Role="Задачи" Type="Self.Задачи" Multiplicity="1" />
+          <End Role="ИсполнителиЗадач" Type="Self.ИсполнителиЗадач" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Задачи">
+              <PropertyRef Name="IDЗадачи" />
+            </Principal>
+            <Dependent Role="ИсполнителиЗадач">
+              <PropertyRef Name="IDЗадачи" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_НазначениеЗадач_Задачи">
+          <End Role="Задачи" Type="Self.Задачи" Multiplicity="1" />
+          <End Role="НазначениеЗадач" Type="Self.НазначениеЗадач" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Задачи">
+              <PropertyRef Name="IDЗадачи" />
+            </Principal>
+            <Dependent Role="НазначениеЗадач">
+              <PropertyRef Name="IDЗадачи" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Сообщения_Задачи">
+          <End Role="Задачи" Type="Self.Задачи" Multiplicity="1" />
+          <End Role="Сообщения" Type="Self.Сообщения" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Задачи">
+              <PropertyRef Name="IDЗадачи" />
+            </Principal>
+            <Dependent Role="Сообщения">
+              <PropertyRef Name="IDЗадачи" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ИсполнителиЗадач_Пользователи">
+          <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="1" />
+          <End Role="ИсполнителиЗадач" Type="Self.ИсполнителиЗадач" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Пользователи">
+              <PropertyRef Name="IDПользователя" />
+            </Principal>
+            <Dependent Role="ИсполнителиЗадач">
+              <PropertyRef Name="IDПользователя" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ПользователиКомпании_Компании">
+          <End Role="Компании" Type="Self.Компании" Multiplicity="1" />
+          <End Role="ПользователиКомпании" Type="Self.ПользователиКомпании" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Компании">
+              <PropertyRef Name="IDКомпании" />
+            </Principal>
+            <Dependent Role="ПользователиКомпании">
+              <PropertyRef Name="IDКомпании" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_НазначениеЗадач_Пользователи">
+          <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="1" />
+          <End Role="НазначениеЗадач" Type="Self.НазначениеЗадач" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Пользователи">
+              <PropertyRef Name="IDПользователя" />
+            </Principal>
+            <Dependent Role="НазначениеЗадач">
+              <PropertyRef Name="IDПользователя" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ПаспортныеДанные_Пользователи">
+          <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="1" />
+          <End Role="ПаспортныеДанные" Type="Self.ПаспортныеДанные" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Пользователи">
+              <PropertyRef Name="IDПользователя" />
+            </Principal>
+            <Dependent Role="ПаспортныеДанные">
+              <PropertyRef Name="IDПользователя" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Пользователи_Роли">
+          <End Role="Роли" Type="Self.Роли" Multiplicity="1" />
+          <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Роли">
+              <PropertyRef Name="IDРоли" />
+            </Principal>
+            <Dependent Role="Пользователи">
+              <PropertyRef Name="IDРоли" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ПользователиКомпании_Пользователи">
+          <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="1" />
+          <End Role="ПользователиКомпании" Type="Self.ПользователиКомпании" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Пользователи">
+              <PropertyRef Name="IDПользователя" />
+            </Principal>
+            <Dependent Role="ПользователиКомпании">
+              <PropertyRef Name="IDПользователя" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Сообщения_Отправитель">
+          <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="1" />
+          <End Role="Сообщения" Type="Self.Сообщения" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Пользователи">
+              <PropertyRef Name="IDПользователя" />
+            </Principal>
+            <Dependent Role="Сообщения">
+              <PropertyRef Name="IDОтправителя" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Сообщения_Получатель">
+          <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="1" />
+          <End Role="Сообщения" Type="Self.Сообщения" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Пользователи">
+              <PropertyRef Name="IDПользователя" />
+            </Principal>
+            <Dependent Role="Сообщения">
+              <PropertyRef Name="IDПолучателя" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OwlPrestigeEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="БанковскиеРеквизиты" EntityType="Self.БанковскиеРеквизиты" />
+          <EntitySet Name="Задачи" EntityType="Self.Задачи" />
+          <EntitySet Name="ИсполнителиЗадач" EntityType="Self.ИсполнителиЗадач" />
+          <EntitySet Name="Компании" EntityType="Self.Компании" />
+          <EntitySet Name="НазначениеЗадач" EntityType="Self.НазначениеЗадач" />
+          <EntitySet Name="ПаспортныеДанные" EntityType="Self.ПаспортныеДанные" />
+          <EntitySet Name="Пользователи" EntityType="Self.Пользователи" />
+          <EntitySet Name="ПользователиКомпании" EntityType="Self.ПользователиКомпании" />
+          <EntitySet Name="Роли" EntityType="Self.Роли" />
+          <EntitySet Name="Сообщения" EntityType="Self.Сообщения" />
+          <EntitySet Name="СтатусыЗадач" EntityType="Self.СтатусыЗадач" />
+          <EntitySet Name="ТипыОбъектов" EntityType="Self.ТипыОбъектов" />
+          <AssociationSet Name="FK_БанковскиеРеквизиты_Пользователи" Association="Self.FK_БанковскиеРеквизиты_Пользователи">
+            <End Role="Пользователи" EntitySet="Пользователи" />
+            <End Role="БанковскиеРеквизиты" EntitySet="БанковскиеРеквизиты" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Задачи_Компании" Association="Self.FK_Задачи_Компании">
+            <End Role="Компании" EntitySet="Компании" />
+            <End Role="Задачи" EntitySet="Задачи" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Задачи_СтатусыЗадач" Association="Self.FK_Задачи_СтатусыЗадач">
+            <End Role="СтатусыЗадач" EntitySet="СтатусыЗадач" />
+            <End Role="Задачи" EntitySet="Задачи" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Задачи_ТипыОбъектов" Association="Self.FK_Задачи_ТипыОбъектов">
+            <End Role="ТипыОбъектов" EntitySet="ТипыОбъектов" />
+            <End Role="Задачи" EntitySet="Задачи" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ИсполнителиЗадач_Задачи" Association="Self.FK_ИсполнителиЗадач_Задачи">
+            <End Role="Задачи" EntitySet="Задачи" />
+            <End Role="ИсполнителиЗадач" EntitySet="ИсполнителиЗадач" />
+          </AssociationSet>
+          <AssociationSet Name="FK_НазначениеЗадач_Задачи" Association="Self.FK_НазначениеЗадач_Задачи">
+            <End Role="Задачи" EntitySet="Задачи" />
+            <End Role="НазначениеЗадач" EntitySet="НазначениеЗадач" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Сообщения_Задачи" Association="Self.FK_Сообщения_Задачи">
+            <End Role="Задачи" EntitySet="Задачи" />
+            <End Role="Сообщения" EntitySet="Сообщения" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ИсполнителиЗадач_Пользователи" Association="Self.FK_ИсполнителиЗадач_Пользователи">
+            <End Role="Пользователи" EntitySet="Пользователи" />
+            <End Role="ИсполнителиЗадач" EntitySet="ИсполнителиЗадач" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ПользователиКомпании_Компании" Association="Self.FK_ПользователиКомпании_Компании">
+            <End Role="Компании" EntitySet="Компании" />
+            <End Role="ПользователиКомпании" EntitySet="ПользователиКомпании" />
+          </AssociationSet>
+          <AssociationSet Name="FK_НазначениеЗадач_Пользователи" Association="Self.FK_НазначениеЗадач_Пользователи">
+            <End Role="Пользователи" EntitySet="Пользователи" />
+            <End Role="НазначениеЗадач" EntitySet="НазначениеЗадач" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ПаспортныеДанные_Пользователи" Association="Self.FK_ПаспортныеДанные_Пользователи">
+            <End Role="Пользователи" EntitySet="Пользователи" />
+            <End Role="ПаспортныеДанные" EntitySet="ПаспортныеДанные" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Пользователи_Роли" Association="Self.FK_Пользователи_Роли">
+            <End Role="Роли" EntitySet="Роли" />
+            <End Role="Пользователи" EntitySet="Пользователи" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ПользователиКомпании_Пользователи" Association="Self.FK_ПользователиКомпании_Пользователи">
+            <End Role="Пользователи" EntitySet="Пользователи" />
+            <End Role="ПользователиКомпании" EntitySet="ПользователиКомпании" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Сообщения_Отправитель" Association="Self.FK_Сообщения_Отправитель">
+            <End Role="Пользователи" EntitySet="Пользователи" />
+            <End Role="Сообщения" EntitySet="Сообщения" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Сообщения_Получатель" Association="Self.FK_Сообщения_Получатель">
+            <End Role="Пользователи" EntitySet="Пользователи" />
+            <End Role="Сообщения" EntitySet="Сообщения" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище OwlPrestigeModelContainer" CdmEntityContainer="OwlPrestigeEntities">
+          <EntitySetMapping Name="БанковскиеРеквизиты">
+            <EntityTypeMapping TypeName="OwlPrestigeModel.БанковскиеРеквизиты">
+              <MappingFragment StoreEntitySet="БанковскиеРеквизиты">
+                <ScalarProperty Name="IDРеквизита" ColumnName="IDРеквизита" />
+                <ScalarProperty Name="IDПользователя" ColumnName="IDПользователя" />
+                <ScalarProperty Name="НомерСчета" ColumnName="НомерСчета" />
+                <ScalarProperty Name="НазваниеБанка" ColumnName="НазваниеБанка" />
+                <ScalarProperty Name="АдресБанка" ColumnName="АдресБанка" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Задачи">
+            <EntityTypeMapping TypeName="OwlPrestigeModel.Задачи">
+              <MappingFragment StoreEntitySet="Задачи">
+                <ScalarProperty Name="IDЗадачи" ColumnName="IDЗадачи" />
+                <ScalarProperty Name="НазваниеЗадачи" ColumnName="НазваниеЗадачи" />
+                <ScalarProperty Name="IDТипаОбъекта" ColumnName="IDТипаОбъекта" />
+                <ScalarProperty Name="СрокВыполнения" ColumnName="СрокВыполнения" />
+                <ScalarProperty Name="IDСтатуса" ColumnName="IDСтатуса" />
+                <ScalarProperty Name="IDКомпании" ColumnName="IDКомпании" />
+                <ScalarProperty Name="ФайлЧертежа" ColumnName="ФайлЧертежа" />
+                <ScalarProperty Name="ФайлСпецификации" ColumnName="ФайлСпецификации" />
+                <ScalarProperty Name="Название_объекта" ColumnName="Название объекта" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ИсполнителиЗадач">
+            <EntityTypeMapping TypeName="OwlPrestigeModel.ИсполнителиЗадач">
+              <MappingFragment StoreEntitySet="ИсполнителиЗадач">
+                <ScalarProperty Name="IDЗадачи" ColumnName="IDЗадачи" />
+                <ScalarProperty Name="IDПользователя" ColumnName="IDПользователя" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Компании">
+            <EntityTypeMapping TypeName="OwlPrestigeModel.Компании">
+              <MappingFragment StoreEntitySet="Компании">
+                <ScalarProperty Name="IDКомпании" ColumnName="IDКомпании" />
+                <ScalarProperty Name="НазваниеКомпании" ColumnName="НазваниеКомпании" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="НазначениеЗадач">
+            <EntityTypeMapping TypeName="OwlPrestigeModel.НазначениеЗадач">
+              <MappingFragment StoreEntitySet="НазначениеЗадач">
+                <ScalarProperty Name="IDНазначения" ColumnName="IDНазначения" />
+                <ScalarProperty Name="IDЗадачи" ColumnName="IDЗадачи" />
+                <ScalarProperty Name="IDПользователя" ColumnName="IDПользователя" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ПаспортныеДанные">
+            <EntityTypeMapping TypeName="OwlPrestigeModel.ПаспортныеДанные">
+              <MappingFragment StoreEntitySet="ПаспортныеДанные">
+                <ScalarProperty Name="IDПаспорта" ColumnName="IDПаспорта" />
+                <ScalarProperty Name="IDПользователя" ColumnName="IDПользователя" />
+                <ScalarProperty Name="СерияПаспорта" ColumnName="СерияПаспорта" />
+                <ScalarProperty Name="НомерПаспорта" ColumnName="НомерПаспорта" />
+                <ScalarProperty Name="ДатаВыдачи" ColumnName="ДатаВыдачи" />
+                <ScalarProperty Name="МестоВыдачи" ColumnName="МестоВыдачи" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Пользователи">
+            <EntityTypeMapping TypeName="OwlPrestigeModel.Пользователи">
+              <MappingFragment StoreEntitySet="Пользователи">
+                <ScalarProperty Name="IDПользователя" ColumnName="IDПользователя" />
+                <ScalarProperty Name="Имя" ColumnName="Имя" />
+                <ScalarProperty Name="Фамилия" ColumnName="Фамилия" />
+                <ScalarProperty Name="Отчество" ColumnName="Отчество" />
+                <ScalarProperty Name="НомерТелефона" ColumnName="НомерТелефона" />
+                <ScalarProperty Name="Логин" ColumnName="Логин" />
+                <ScalarProperty Name="Пароль" ColumnName="Пароль" />
+                <ScalarProperty Name="IDРоли" ColumnName="IDРоли" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ПользователиКомпании">
+            <EntityTypeMapping TypeName="OwlPrestigeModel.ПользователиКомпании">
+              <MappingFragment StoreEntitySet="ПользователиКомпании">
+                <ScalarProperty Name="IDПользователя" ColumnName="IDПользователя" />
+                <ScalarProperty Name="IDКомпании" ColumnName="IDКомпании" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Роли">
+            <EntityTypeMapping TypeName="OwlPrestigeModel.Роли">
+              <MappingFragment StoreEntitySet="Роли">
+                <ScalarProperty Name="IDРоли" ColumnName="IDРоли" />
+                <ScalarProperty Name="НазваниеРоли" ColumnName="НазваниеРоли" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Сообщения">
+            <EntityTypeMapping TypeName="OwlPrestigeModel.Сообщения">
+              <MappingFragment StoreEntitySet="Сообщения">
+                <ScalarProperty Name="IDСообщения" ColumnName="IDСообщения" />
+                <ScalarProperty Name="IDЗадачи" ColumnName="IDЗадачи" />
+                <ScalarProperty Name="IDОтправителя" ColumnName="IDОтправителя" />
+                <ScalarProperty Name="IDПолучателя" ColumnName="IDПолучателя" />
+                <ScalarProperty Name="ТекстСообщения" ColumnName="ТекстСообщения" />
+                <ScalarProperty Name="Вложение" ColumnName="Вложение" />
+                <ScalarProperty Name="ВремяОтправки" ColumnName="ВремяОтправки" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="СтатусыЗадач">
+            <EntityTypeMapping TypeName="OwlPrestigeModel.СтатусыЗадач">
+              <MappingFragment StoreEntitySet="СтатусыЗадач">
+                <ScalarProperty Name="IDСтатуса" ColumnName="IDСтатуса" />
+                <ScalarProperty Name="НазваниеСтатуса" ColumnName="НазваниеСтатуса" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ТипыОбъектов">
+            <EntityTypeMapping TypeName="OwlPrestigeModel.ТипыОбъектов">
+              <MappingFragment StoreEntitySet="ТипыОбъектов">
+                <ScalarProperty Name="IDТипаОбъекта" ColumnName="IDТипаОбъекта" />
+                <ScalarProperty Name="НазваниеТипа" ColumnName="НазваниеТипа" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

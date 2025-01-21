@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="10ed3a5e98074d7fb3177d1fc544072e" Name="Diagram1">
+        <EntityTypeShape EntityType="OwlPrestigeModel.БанковскиеРеквизиты" Width="1.5" PointX="5.25" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="OwlPrestigeModel.Задачи" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OwlPrestigeModel.ИсполнителиЗадач" Width="1.5" PointX="5.25" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OwlPrestigeModel.Компании" Width="1.5" PointX="6" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OwlPrestigeModel.НазначениеЗадач" Width="1.5" PointX="8.25" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OwlPrestigeModel.ПаспортныеДанные" Width="1.5" PointX="5.25" PointY="17.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OwlPrestigeModel.Пользователи" Width="1.5" PointX="3" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OwlPrestigeModel.ПользователиКомпании" Width="2.875" PointX="8.25" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OwlPrestigeModel.Роли" Width="1.5" PointX="0.75" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OwlPrestigeModel.Сообщения" Width="1.5" PointX="8.25" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OwlPrestigeModel.СтатусыЗадач" Width="1.5" PointX="3.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OwlPrestigeModel.ТипыОбъектов" Width="1.5" PointX="3.75" PointY="2.625" IsExpanded="true" />
+        <AssociationConnector Association="OwlPrestigeModel.FK_БанковскиеРеквизиты_Пользователи" ManuallyRouted="false" />
+        <AssociationConnector Association="OwlPrestigeModel.FK_Задачи_Компании" ManuallyRouted="false" />
+        <AssociationConnector Association="OwlPrestigeModel.FK_Задачи_СтатусыЗадач" ManuallyRouted="false" />
+        <AssociationConnector Association="OwlPrestigeModel.FK_Задачи_ТипыОбъектов" ManuallyRouted="false" />
+        <AssociationConnector Association="OwlPrestigeModel.FK_ИсполнителиЗадач_Задачи" ManuallyRouted="false" />
+        <AssociationConnector Association="OwlPrestigeModel.FK_НазначениеЗадач_Задачи" ManuallyRouted="false" />
+        <AssociationConnector Association="OwlPrestigeModel.FK_Сообщения_Задачи" ManuallyRouted="false" />
+        <AssociationConnector Association="OwlPrestigeModel.FK_ИсполнителиЗадач_Пользователи" ManuallyRouted="false" />
+        <AssociationConnector Association="OwlPrestigeModel.FK_ПользователиКомпании_Компании" ManuallyRouted="false" />
+        <AssociationConnector Association="OwlPrestigeModel.FK_НазначениеЗадач_Пользователи" ManuallyRouted="false" />
+        <AssociationConnector Association="OwlPrestigeModel.FK_ПаспортныеДанные_Пользователи" ManuallyRouted="false" />
+        <AssociationConnector Association="OwlPrestigeModel.FK_Пользователи_Роли" ManuallyRouted="false" />
+        <AssociationConnector Association="OwlPrestigeModel.FK_ПользователиКомпании_Пользователи" ManuallyRouted="false" />
+        <AssociationConnector Association="OwlPrestigeModel.FK_Сообщения_Отправитель" ManuallyRouted="false" />
+        <AssociationConnector Association="OwlPrestigeModel.FK_Сообщения_Получатель" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
